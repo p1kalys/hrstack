@@ -3,19 +3,24 @@ import type { BlogComment } from '../../interfaces/interface'
 import CommentTable from '../../components/CommentTable'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
+import { PropagateLoader } from 'react-spinners'
 
 const Comments = () => {
   const [comments, setComments] = useState<BlogComment[]>([])
-  const [filter, setFilter] = useState<string>('Not Approved')
+  const [filter, setFilter] = useState<string>('Approved')
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { axios } = useAppContext()
 
   const fetchComments = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.get('/api/profile/comments')
       data.success ? setComments(data.comments) : toast.error(data.message)
     } catch (error: any) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -23,7 +28,9 @@ const Comments = () => {
     fetchComments();
   }, [])
 
-  return (
+  return (loading ? <div className="flex items-center justify-center h-screen w-screen">
+    <PropagateLoader color='#2563eb' />
+  </div> :
     <div className='flex-1 pt-5 px-5 sm:pt-12 sm:pl-16 bg-blue-50/50'>
       <div className='flex justify-between items-center max-w-3xl'>
         <h1>Comments</h1>

@@ -4,6 +4,7 @@ import type { DashboardData } from '../../interfaces/interface'
 import Table from '../../components/BlogTable'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
+import { PropagateLoader } from 'react-spinners'
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData>({
@@ -12,16 +13,20 @@ const Dashboard = () => {
     drafts: 0,
     recentBlogs: []
   })
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const {axios} = useAppContext();
+  const { axios } = useAppContext();
 
   const fetchDashboard = async () => {
+    setLoading(true);
     try {
-      const {data} = await axios.get(`/api/profile/dashboard`);
+      const { data } = await axios.get(`/api/profile/dashboard`);
       data.success ? setDashboardData(data.dashboardData) : toast.error(data.message)
 
-    } catch(error: any) {
+    } catch (error: any) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -29,7 +34,9 @@ const Dashboard = () => {
     fetchDashboard()
   }, [])
 
-  return (
+  return (loading ? <div className="flex items-center justify-center h-screen w-screen">
+    <PropagateLoader color='#2563eb' />
+  </div> :
     <div className='flex-1 p-4 md:p-10 bg-blue-50/50'>
       <div className='flex flexx-wrap gap-4'>
         <div className='flex items-center gap-4 bg-white p-4 min-w-58 rounded shadow cursor-pointer hover:scale-105 transition-all'>
@@ -75,7 +82,7 @@ const Dashboard = () => {
             </thead>
             <tbody>
               {dashboardData.recentBlogs.map((blog, index) => {
-                return <Table key={blog._id} blog={blog} fetchBlogs={fetchDashboard} index={index + 1} /> 
+                return <Table key={blog._id} blog={blog} fetchBlogs={fetchDashboard} index={index + 1} />
               })}
             </tbody>
           </table>
