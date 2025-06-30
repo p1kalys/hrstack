@@ -3,12 +3,16 @@ import { useAppContext } from '../context/AppContext'
 import { assets } from '../utils/assets'
 
 const Header = () => {
-    const { setInput, input } = useAppContext();
+    const { setInput, input, navigate } = useAppContext();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (inputRef.current?.value === 'admin') {
+            navigate('/profile');
+            inputRef.current.value = '';
+        }
         if (inputRef.current) {
             setInput(inputRef.current.value);
         }
