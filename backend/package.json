@@ -21,7 +21,8 @@
     "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

@@ -8,7 +8,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 
     return (
         <div onClick={() => navigate(`/blog/${_id}`)} className='w-full rounded-lg overflow-hidden pb-6 shadow hover:scale-102 hover:shadow-primary/25 duration-300 cursor-pointer'>
-            {blog?.image && <img src={blog?.image} alt="Blog Image" className="aspecct-video" />}
+            {blog?.image && <img src={blog?.image} alt="Blog Image" className="aspect-video" />}
             <div className='p-5'>
                 <h5 className='mb-2 font-medium text-gray-900'>{title}</h5>
                 <p className='text-xs text-gray-600' dangerouslySetInnerHTML={{"__html": description.slice(0,80)}}></p>

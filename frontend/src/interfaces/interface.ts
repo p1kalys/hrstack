@@ -47,3 +47,21 @@ export interface CommentTableProps {
     comment: BlogComment;
     fetchComments: () => void;
 }
+
+export interface RssFeedItem {
+    title: string;
+    link: string;
+    pubDate: string;
+    content: string;
+    contentSnippet: string;
+    guid: string;
+    isoDate: string;
+}
+
+export interface RssFeed {
+    title: string;
+    description: string;
+    link: string;
+    language: string;
+    items: RssFeedItem[];
+}

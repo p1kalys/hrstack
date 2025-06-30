@@ -22,7 +22,7 @@ const NewsLetter = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center text-center space-y-2 my-32'>
+    <div className='flex flex-col items-center justify-center text-center space-y-2 my-6 mx-4'>
       <h1 className='md:text-4xl text-2xl font-semibold'>Never Miss Updates!</h1>
       <p className='md:text-lg text-gray-500/70 pb-8'>Subscribe to get the latest blog, articles and exclusive news about HR Industry.</p>
       <form onSubmit={handleSubscribe} className='flex items-center justify-between max-w-2xl w-full md:h-13 h-12'>

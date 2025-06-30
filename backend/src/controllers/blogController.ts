@@ -6,6 +6,7 @@ import { AuthenticatedRequest } from '../middleware/auth';
 import Comment from '../models/Comment';
 import main from '../config/gemini';
 import Subscriber from '../models/Subscriber';
+import Parser from 'rss-parser';
 
 export const addBlog = async (req: AuthenticatedRequest, res: Response) => {
     try {
@@ -150,3 +151,28 @@ export const subscribeUser = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 }
+
+export const fetchExternalBlogs = async (req: Request, res: Response) => {
+    try {
+        const parser = new Parser();
+        const urls = [
+            'https://hr.economictimes.indiatimes.com/rss/topstories',
+            'https://hr.economictimes.indiatimes.com/rss/workplace-4-0/talent-management',
+            'https://hr.economictimes.indiatimes.com/rss/hrtech',
+        ];
+
+        const feedPromises = urls.map(url => parser.parseURL(url));
+        const feeds = await Promise.all(feedPromises);
+
+        const combinedItems = feeds.flatMap(feed => feed.items);
+
+        combinedItems.sort((a, b) =>
+            new Date(b.isoDate || '').getTime() - new Date(a.isoDate || '').getTime()
+        );
+
+        res.json({ success: true, feed: { items: combinedItems } });
+    } catch (error: any) {
+        console.error('RSS feed fetch failed:', error);
+        res.json({ success: false, message: error.message });
+    }
+};

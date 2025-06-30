@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import BlogList from '../components/BlogList'
 import NewsLetter from '../components/NewsLetter'
 import Footer from '../components/Footer'
+import Feed from '../components/Feed'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Header />
       <BlogList />
       <NewsLetter />
+      <Feed />
       <Footer />
     </>
   )
