@@ -65,3 +65,7 @@ export interface RssFeed {
     language: string;
     items: RssFeedItem[];
 }
+
+export type MergedFeed = 
+    | { type: 'internal'; date: Date; data: Blog }
+    | { type: 'rss'; date: Date; data: RssFeedItem };

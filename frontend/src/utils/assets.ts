@@ -11,7 +11,6 @@ import blog_pic_10 from '../assets/blog_pic_10.png';
 import facebook_icon from '../assets/facebook_icon.svg'
 import googleplus_icon from '../assets/googleplus_icon.svg'
 import twitter_icon from '../assets/twitter_icon.svg'
-import logo from '../assets/logo.png'
 import arrow from '../assets/arrow.svg'
 import blog_icon from '../assets/blog_icon.png'
 import add_icon from '../assets/add_icon.svg'
@@ -36,7 +35,6 @@ export const assets = {
     facebook_icon,
     googleplus_icon,
     twitter_icon,
-    logo,
     arrow,
     blog_icon,
     add_icon,
@@ -56,7 +54,7 @@ export const assets = {
     dashboard_icon_3,
     dashboard_icon_4,
 }
-export const blogCategories = ['All', 'Technology', 'Startup', 'Lifestyle', 'Finance']
+export const blogCategories = ['All', 'People Analytics', 'HR Technology', 'Talent Acquisition', 'Payroll', 'Performance Management', 'Total Rewards', 'Benefits']
 
 export const blog_data = [
     {

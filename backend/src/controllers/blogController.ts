@@ -159,6 +159,7 @@ export const fetchExternalBlogs = async (req: Request, res: Response) => {
             'https://hr.economictimes.indiatimes.com/rss/topstories',
             'https://hr.economictimes.indiatimes.com/rss/workplace-4-0/talent-management',
             'https://hr.economictimes.indiatimes.com/rss/hrtech',
+            'https://www.hrdive.com/feeds/news/'
         ];
 
         const feedPromises = urls.map(url => parser.parseURL(url));
@@ -169,6 +170,7 @@ export const fetchExternalBlogs = async (req: Request, res: Response) => {
         combinedItems.sort((a, b) =>
             new Date(b.isoDate || '').getTime() - new Date(a.isoDate || '').getTime()
         );
+        console.log(combinedItems);
 
         res.json({ success: true, feed: { items: combinedItems } });
     } catch (error: any) {
