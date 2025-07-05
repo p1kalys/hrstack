@@ -7,6 +7,8 @@ import userRouter from './routes/userRoutes';
 import blogRouter from './routes/blogRoutes';
 import adminRouter from "./routes/adminRoutes";
 import './cron/rssFetcher';
+import './cron/pastEvents';
+import eventRouter from "./routes/eventRoutes";
 
 
 const app = express();
@@ -19,6 +21,7 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
+app.use('/api/event', eventRouter)
 app.use('/api/admin', adminRouter)
 app.use('/api/profile', userRouter)
 app.use('/api/blog', blogRouter)

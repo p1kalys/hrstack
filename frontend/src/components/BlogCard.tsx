@@ -16,7 +16,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
     }
 
     return (
-        <div onClick={handleClick} className='w-full rounded-lg shadow overflow-hidden hover:scale-102 hover:shadow-primary/25 duration-300 cursor-pointer'>
+        <div onClick={handleClick} className='w-full rounded-lg shadow overflow-hidden hover:scale-102 hover:shadow-primary/25 duration-300 cursor-pointer bg-white'>
             <div className='p-5'>
                 <h5 className='mb-2 font-medium text-primary/90'>{title}</h5>
                 <p className='text-xs text-gray-600' dangerouslySetInnerHTML={{ "__html": description.slice(0, 70) + '...' }}></p>

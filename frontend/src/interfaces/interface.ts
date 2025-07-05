@@ -51,24 +51,42 @@ export interface CommentTableProps {
     fetchComments: () => void;
 }
 
-export interface RssFeedItem {
-    title: string;
-    link: string;
-    pubDate: string;
-    content: string;
-    contentSnippet: string;
-    guid: string;
-    isoDate: string;
-}
 
-export interface RssFeed {
+export interface EventType {
+    _id: string;
     title: string;
     description: string;
-    link: string;
-    language: string;
-    items: RssFeedItem[];
+    location: string;
+    date: string;
+    image?: string;
 }
 
-export type MergedFeed =
-    | { type: 'internal'; date: Date; data: Blog }
-    | { type: 'rss'; date: Date; data: RssFeedItem };
+export interface EventCardProps {
+    event: EventType;
+}
+
+export interface EventData {
+    _id: string;
+    title: string;
+    description: string;
+    location?: string;
+    link?: string;
+    physical: boolean;
+    date: string;
+    createdAt: string;
+    isApproved: boolean;
+}
+
+export interface EventModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    mode: 'create' | 'update';
+    initialData?: EventData;
+    eventId?: string;
+    onSuccess: () => void;
+}
+
+export interface EventTableProps {
+    eventData: EventData;
+    fetchEvents: () => void;
+}

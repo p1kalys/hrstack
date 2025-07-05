@@ -10,20 +10,24 @@ import LogIn from "./components/LogIn"
 import 'quill/dist/quill.snow.css'
 import { Toaster } from "react-hot-toast"
 import { useAppContext } from "./context/AppContext"
+import Events from "./pages/Events"
+import ManageEvents from "./pages/admin/ManageEvents"
 
 const App = () => {
-  const {token} = useAppContext();
+  const { token } = useAppContext();
   return (
     <div>
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/blog/:id" element={<ViewBlog />} />
-        <Route path="/profile" element={token !== null ? <Layout />: <LogIn />}>
+        <Route path="/profile" element={token !== null ? <Layout /> : <LogIn />}>
           <Route index element={<Dashboard />} />
           <Route path='addBlog' element={<AddBlog />} />
           <Route path="blogsVault" element={<ListofBlogs />} />
           <Route path="comments" element={<Comments />} />
+          <Route path="events" element={<ManageEvents />} />
         </Route>
       </Routes>
     </div>
