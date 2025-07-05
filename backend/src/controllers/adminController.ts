@@ -4,7 +4,7 @@ import Comment from "../models/Comment";
 
 export const getAllBlogsAdmin = async (req: Request, res: Response) => {
     try {
-        const blogs = await Blog.find({}).sort({ createdAt: -1 });
+        const blogs = await Blog.find({isFromRss: {$ne: true}}).sort({ createdAt: -1 });
         res.json({ success: true, blogs });
     } catch (error: any) {
         res.json({ success: false, message: error.message })
