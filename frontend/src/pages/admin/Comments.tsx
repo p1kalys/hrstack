@@ -10,12 +10,12 @@ const Comments = () => {
   const [filter, setFilter] = useState<string>('Approved')
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { axios } = useAppContext()
+  const { axios, role } = useAppContext()
 
   const fetchComments = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/profile/comments')
+      const { data } = await axios.get(`/api/${role}/comments`)
       data.success ? setComments(data.comments) : toast.error(data.message)
     } catch (error: any) {
       toast.error(error.message);
@@ -41,7 +41,7 @@ const Comments = () => {
       </div>
       <div className='relative h-4/5 max-w-3xl overflow-x-auto mt-4 bg-white shadow rounded-lg scrollbar-hide'>
         <table className='w-full text-sm text-gray-500'>
-          <thead className='text-xs text-gray-700 text-left uppercase'>
+          <thead className='text-xs text-gray-700 sticky top-0 z-10 bg-white shadow-sm text-left uppercase'>
             <tr>
               <th scope='col' className='px-6 py-3'>Blog Title & Comment</th>
               <th scope='col' className='px-6 py-3 max-sm:hidden'>Date</th>
@@ -52,9 +52,22 @@ const Comments = () => {
             {comments.filter((comment) => {
               if (filter === 'Approved') return comment.isApproved === true;
               return comment.isApproved === false;
-            }).map((comment, index) => (
-              <CommentTable key={index} comment={comment} fetchComments={fetchComments} />
-            ))}
+            }).length === 0 ? (
+              <tr>
+                <td colSpan={3} className="text-center py-6 text-gray-500">
+                  No comments found.
+                </td>
+              </tr>
+            ) : (
+              comments
+                .filter((comment) => {
+                  if (filter === 'Approved') return comment.isApproved === true;
+                  return comment.isApproved === false;
+                })
+                .map((comment, index) => (
+                  <CommentTable key={index} comment={comment} fetchComments={fetchComments} />
+                ))
+            )}
           </tbody>
         </table>
       </div>

@@ -14,6 +14,9 @@ export interface Blog {
     isPublished: boolean,
     subTitle: string,
     author: Author,
+    rssSource?: string;
+    rssLink?: string;
+    isFromRss?: boolean;
 };
 
 export interface BlogCardProps {
@@ -66,6 +69,6 @@ export interface RssFeed {
     items: RssFeedItem[];
 }
 
-export type MergedFeed = 
+export type MergedFeed =
     | { type: 'internal'; date: Date; data: Blog }
     | { type: 'rss'; date: Date; data: RssFeedItem };

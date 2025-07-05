@@ -11,6 +11,9 @@ export interface IBlog extends Document {
     createdAt?: Date;
     updatedAt?: Date;
     author: mongoose.Types.ObjectId;
+    rssSource?: string;
+    rssLink?: string;
+    isFromRss?: boolean;
 }
 
 const blogSchema: Schema<IBlog> = new Schema(
@@ -20,9 +23,12 @@ const blogSchema: Schema<IBlog> = new Schema(
         description: { type: String, required: true },
         category: { type: [String], required: true },
         image: { type: String },
-        anonymous: { type: Boolean, required: true, default: false},
+        anonymous: { type: Boolean, required: true, default: false },
         isPublished: { type: Boolean, required: true, default: false },
         author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        rssSource: { type: String },
+        rssLink: { type: String },
+        isFromRss: { type: Boolean, default: false },
     },
     { timestamps: true }
 );

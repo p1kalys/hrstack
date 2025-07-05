@@ -55,10 +55,62 @@ export const addBlog = async (req: AuthenticatedRequest, res: Response) => {
     }
 };
 
-export const getAllBllogs = async (req: Request, res: Response) => {
+export const getAllBlogs = async (req: Request, res: Response) => {
     try {
-        const blogs = await Blog.find({ isPublished: true }).sort({ createdAt: -1 });
-        res.json({ success: true, blogs });
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        const search = (req.query.search as string || '').trim().toLowerCase();
+        const category = req.query.category as string;
+        const filtersApplied = !!search || (category && category !== 'All');
+        const queryFilter: any = {
+            isPublished: true
+        };
+
+        if (filtersApplied) {
+            queryFilter.isFromRss = { $ne: true };
+
+            const andConditions: any[] = [];
+
+            if (search) {
+                andConditions.push({
+                    $or: [
+                        { title: { $regex: search, $options: 'i' } },
+                        { description: { $regex: search, $options: 'i' } }
+                    ]
+                });
+            }
+
+            if (category && category !== 'All') {
+                andConditions.push({
+                    category: { $elemMatch: { $regex: category, $options: 'i' } }
+                });
+            }
+
+            if (andConditions.length > 0) {
+                queryFilter.$and = andConditions;
+            }
+        }
+
+        const skip = (page - 1) * limit;
+
+        const total = await Blog.countDocuments(queryFilter);
+
+        // Fetch paginated blogs
+        const blogs = await Blog.find(queryFilter)
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        res.json({
+            success: true,
+            blogs,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+            },
+        });
     } catch (error: any) {
         res.json({ success: false, message: error.message })
     }
@@ -170,7 +222,6 @@ export const fetchExternalBlogs = async (req: Request, res: Response) => {
         combinedItems.sort((a, b) =>
             new Date(b.isoDate || '').getTime() - new Date(a.isoDate || '').getTime()
         );
-        console.log(combinedItems);
 
         res.json({ success: true, feed: { items: combinedItems } });
     } catch (error: any) {

@@ -10,11 +10,13 @@ const useAutoLogout = () => {
 
         if (expiry && expiry < now) {
             localStorage.removeItem('token');
+            localStorage.removeItem('role');
             localStorage.removeItem('tokenExpiry');
             navigate('/profile');
         } else if (expiry) {
             const timeout = setTimeout(() => {
                 localStorage.removeItem('token');
+                localStorage.removeItem('role');
                 localStorage.removeItem('tokenExpiry');
                 navigate('/profile');
             }, expiry - now);

@@ -19,7 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog/:id" element={<ViewBlog />} />
-        <Route path="/profile" element={token ? <Layout />: <LogIn />}>
+        <Route path="/profile" element={token !== null ? <Layout />: <LogIn />}>
           <Route index element={<Dashboard />} />
           <Route path='addBlog' element={<AddBlog />} />
           <Route path="blogsVault" element={<ListofBlogs />} />

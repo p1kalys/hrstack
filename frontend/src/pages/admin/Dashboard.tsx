@@ -15,12 +15,12 @@ const Dashboard = () => {
   })
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { axios } = useAppContext();
+  const { axios, role } = useAppContext();
 
   const fetchDashboard = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`/api/profile/dashboard`);
+      const { data } = await axios.get(`/api/${role}/dashboard`);
       data.success ? setDashboardData(data.dashboardData) : toast.error(data.message)
 
     } catch (error: any) {

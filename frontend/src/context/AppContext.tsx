@@ -7,8 +7,6 @@ import {
 } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import type { Blog } from '../interfaces/interface';
 
 // Set base URL
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
@@ -18,8 +16,8 @@ interface AppContextType {
     navigate: ReturnType<typeof useNavigate>;
     token: string | null;
     setToken: React.Dispatch<React.SetStateAction<string | null>>;
-    blogs: Blog[];
-    setBlogs: React.Dispatch<React.SetStateAction<Blog[]>>;
+    role: string | null;
+    setRole: React.Dispatch<React.SetStateAction<string | null>>;
     input: string;
     setInput: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -33,23 +31,16 @@ interface AppProviderProps {
 export const AppProvider = ({ children }: AppProviderProps) => {
     const navigate = useNavigate();
     const [token, setToken] = useState<string | null>(null);
-    const [blogs, setBlogs] = useState<Blog[]>([]);
+    const [role, setRole] = useState<string | null>(null);
     const [input, setInput] = useState<string>('');
 
-    const fetchBlogs = async () => {
-        try {
-            const { data } = await axios.get('/api/blog/all');
-            data?.success ? setBlogs(data.blogs) : toast.error(data.message);
-        } catch (error: any) {
-            toast.error(error.message);
-        }
-    };
 
     useEffect(() => {
-        fetchBlogs();
         const storedToken = localStorage.getItem('token');
+        const storedRole = localStorage.getItem('role');
         if (storedToken) {
             setToken(storedToken);
+            setRole(storedRole);
             axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
         }
     }, []);
@@ -59,8 +50,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         navigate,
         token,
         setToken,
-        blogs,
-        setBlogs,
+        role,
+        setRole,
         input,
         setInput,
     };

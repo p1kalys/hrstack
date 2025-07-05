@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Blog from "../models/Blog";
 import Comment from "../models/Comment";
 
-export const getAllBllogsAdmin = async (req: Request, res: Response) => {
+export const getAllBlogsAdmin = async (req: Request, res: Response) => {
     try {
         const blogs = await Blog.find({}).sort({ createdAt: -1 });
         res.json({ success: true, blogs });
@@ -22,10 +22,10 @@ export const getAllCommentsAdmin = async (req: Request, res: Response) => {
 }
 
 
-export const getDashboard = async (req: Request, res: Response) => {
+export const getDashboardAdmin = async (req: Request, res: Response) => {
     try {
-        const recentBlogs = await Blog.find({}).sort({ createdAt: -1 }).limit(5);
-        const blogs = await Blog.countDocuments();
+        const recentBlogs = await Blog.find({isFromRss: {$ne: true}}).sort({ createdAt: -1 }).limit(5);
+        const blogs = await Blog.countDocuments({ isFromRss: {$ne: true} });
         const comments = await Comment.countDocuments();
         const drafts = await Blog.countDocuments({ isPublished: false });
         const dashboardData = { blogs, recentBlogs, comments, drafts }
