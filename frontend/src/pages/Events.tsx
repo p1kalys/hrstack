@@ -7,6 +7,7 @@ import EventCard from '../components/EventCard';
 import type { EventType } from '../interfaces/interface';
 import EventModal from '../components/EventModal';
 import toast from 'react-hot-toast';
+import { PropagateLoader } from 'react-spinners';
 
 const Events = () => {
     const [events, setEvents] = useState<EventType[]>([]);
@@ -84,11 +85,13 @@ const Events = () => {
                             Add Event
                         </button>
                     </div>
-                    {isAdding && <EventModal isOpen={isAdding} onClose={() => setIsAdding(false)} mode='create' onSuccess={() => {setIsAdding(false); toast.success('Event added under review')}} />}
+                    {isAdding && <EventModal isOpen={isAdding} onClose={() => setIsAdding(false)} mode='create' onSuccess={() => { setIsAdding(false); toast.success('Event added under review') }} />}
 
-                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-6 justify-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                         {loading ? (
-                            <p>Loading...</p>
+                            <div className="flex items-center justify-center h-screen">
+                                <PropagateLoader color='#2563eb' />
+                            </div>
                         ) : events.length ? (
                             events.map((event) => <EventCard key={event._id} event={event} />)
                         ) : (
