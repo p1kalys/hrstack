@@ -90,3 +90,29 @@ export interface EventTableProps {
     eventData: EventData;
     fetchEvents: () => void;
 }
+
+export interface JobData {
+    _id: string;
+    title?: string;
+    description?: string;
+    company?: string;
+    location?: string;
+    link?: string;
+    imageUrl?: string;
+    isApproved: boolean;
+    createdAt: string;
+}
+
+export interface JobModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    mode: 'create' | 'update';
+    initialData?: JobData;
+    jobId?: string;
+    onSuccess: () => void;
+}
+
+export interface JobTableProps {
+    jobData: JobData;
+    fetchJobs: () => void;
+}

@@ -5,6 +5,7 @@ import Table from '../../components/BlogTable'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
 import { PropagateLoader } from 'react-spinners'
+import { List } from 'lucide-react'
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData>({
@@ -65,7 +66,7 @@ const Dashboard = () => {
       </div>
       <div>
         <div className='flex items-center gap-3 m-4 mt-6 text-gray-600'>
-          <img src={assets.dashboard_icon_4} alt='Dashboard Icon 4' className='w-5 h-5' />
+          <List className='w-5 h-5' color='#2563eb' />
           <p>Latest Blogs</p>
         </div>
 

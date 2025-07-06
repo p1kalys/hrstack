@@ -12,6 +12,8 @@ import { Toaster } from "react-hot-toast"
 import { useAppContext } from "./context/AppContext"
 import Events from "./pages/Events"
 import ManageEvents from "./pages/admin/ManageEvents"
+import Jobs from "./pages/Jobs"
+import ManageJobs from "./pages/admin/ManageJobs"
 
 const App = () => {
   const { token } = useAppContext();
@@ -21,6 +23,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route path="/blog/:id" element={<ViewBlog />} />
         <Route path="/profile" element={token !== null ? <Layout /> : <LogIn />}>
           <Route index element={<Dashboard />} />
@@ -28,6 +31,7 @@ const App = () => {
           <Route path="blogsVault" element={<ListofBlogs />} />
           <Route path="comments" element={<Comments />} />
           <Route path="events" element={<ManageEvents />} />
+          <Route path="jobs" element={<ManageJobs />} />
         </Route>
       </Routes>
     </div>

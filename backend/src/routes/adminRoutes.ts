@@ -2,7 +2,7 @@ import express from "express";
 import { registerUser, loginUser } from "../controllers/authController";
 import { deleteUser, updatePassword } from "../controllers/userController";
 import { authenticateJWT } from "../middleware/auth";
-import { approveCommentbyId, approveEventbyId, deleteCommentbyId, deleteEventbyId, getAllBlogsAdmin, getAllCommentsAdmin, getAllEventsAdmin, getDashboardAdmin } from "../controllers/adminController";
+import { approveCommentbyId, approveEventbyId, approveJobbyId, deleteCommentbyId, deleteEventbyId, deleteJobbyId, getAllBlogsAdmin, getAllCommentsAdmin, getAllEventsAdmin, getAllJobsAdmin, getDashboardAdmin } from "../controllers/adminController";
 
 const adminRouter = express.Router();
 
@@ -19,5 +19,8 @@ adminRouter.get('/dashboard', authenticateJWT, getDashboardAdmin);
 adminRouter.post('/approve-event/:id', authenticateJWT, approveEventbyId);
 adminRouter.post('/delete-event/:id', authenticateJWT, deleteEventbyId);
 adminRouter.get('/events', authenticateJWT, getAllEventsAdmin);
+adminRouter.post('/approve-job/:id', authenticateJWT, approveJobbyId);
+adminRouter.post('/delete-job/:id', authenticateJWT, deleteJobbyId);
+adminRouter.get('/jobs', authenticateJWT, getAllJobsAdmin);
 
 export default adminRouter;

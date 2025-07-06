@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Blog from "../models/Blog";
 import Comment from "../models/Comment";
 import Event from "../models/Event";
+import Job from "../models/Job";
 
 export const getAllBlogsAdmin = async (req: Request, res: Response) => {
     try {
@@ -26,6 +27,15 @@ export const getAllEventsAdmin = async (req: Request, res: Response) => {
     try {
         const events = await Event.find({}).sort({ date: 1 });
         res.json({ success: true, events });
+    } catch (error: any) {
+        res.json({ success: false, message: error.message })
+    }
+}
+
+export const getAllJobsAdmin = async (req: Request, res: Response) => {
+    try {
+        const jobs = await Job.find({}).sort({ date: 1 });
+        res.json({ success: true, jobs });
     } catch (error: any) {
         res.json({ success: false, message: error.message })
     }
@@ -79,6 +89,26 @@ export const deleteEventbyId = async (req: Request, res: Response) => {
         const { id } = req.params;
         await Event.findByIdAndDelete(id);
         res.json({ success: true, message: "Event deleted successfully" });
+    } catch (error: any) {
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export const approveJobbyId = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        await Job.findByIdAndUpdate(id, { isApproved: true });
+        res.json({ success: true, message: "Job approved successfully" });
+    } catch (error: any) {
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export const deleteJobbyId = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        await Job.findByIdAndDelete(id);
+        res.json({ success: true, message: "Job deleted successfully" });
     } catch (error: any) {
         res.json({ success: false, message: error.message });
     }

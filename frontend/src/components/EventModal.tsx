@@ -92,7 +92,7 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, mode, initialD
                             <div
                                 key={idx}
                                 onClick={() => setPhysical(item === 'Physical')}
-                                className={`cursor-pointer px-3 py-1 rounded-full border text-sm font-medium transition ${isSelected ? 'bg-primary text-white border-primary' : 'bg-gray-100 text-gray-700 border-gray-300'}`}
+                                className={`cursor-pointer px-3 py-1 rounded-full border text-xs sm:text-sm font-medium transition ${isSelected ? 'bg-primary text-white border-primary' : 'bg-gray-100 text-gray-700 border-gray-300'}`}
                             >
                                 {item}
                             </div>
@@ -138,14 +138,14 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, mode, initialD
                 <div className="flex justify-end gap-3 mt-4">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded cursor-pointer hover:bg-gray-300 transition"
+                        className="px-4 sm:px-10 py-1.5 sm:py-2.5 text-xs sm:text-sm bg-gray-200 text-gray-700 rounded cursor-pointer hover:bg-gray-300 transition" 
                         disabled={loading}
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
-                        className="px-4 py-2 text-sm bg-primary text-white cursor-pointer rounded hover:bg-primary/90 transition"
+                        className="px-4 sm:px-10 py-1.5 sm:py-2.5 text-xs sm:text-sm bg-primary text-white cursor-pointer rounded hover:bg-primary/90 transition"
                         disabled={loading}
                     >
                         {loading ? (mode === 'create' ? 'Creating...' : 'Updating...') : mode === 'create' ? 'Create' : 'Update'}

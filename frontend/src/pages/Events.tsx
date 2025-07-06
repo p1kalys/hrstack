@@ -37,14 +37,15 @@ const Events = () => {
         fetchEvents();
     }, []);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         fetchEvents();
     }
 
     return (
         <>
             <Navbar />
-            <div className='h-screen w-screen flex relative justify-center items-center'>
+            <div className='h-screen w-screen flex relative justify-center'>
                 <img src={assets.gradientBackground} className='absolute -top-50 -z-1 opacity-50' alt='gradient background' />
                 <div className="w-5xl px-4 sm:px-20 py-10">
                     <div className='relative'>
@@ -89,7 +90,7 @@ const Events = () => {
 
                     <div className="grid gap-6 justify-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                         {loading ? (
-                            <div className="flex items-center justify-center h-screen">
+                            <div className="col-span-full flex items-center justify-center min-h-[300px]">
                                 <PropagateLoader color='#2563eb' />
                             </div>
                         ) : events.length ? (

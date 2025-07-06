@@ -35,7 +35,7 @@ const ListofBlogs = () => {
       <PropagateLoader color='#2563eb' />
     </div> :
       <div className='flex-1 pt-5 px-5 sm:pt-12 sm:pl-16 bg-blue-50/50'>
-        <h1>All blogs</h1>
+        <h1 className='text-primary/90 text-2xl font-bold'>All blogs</h1>
         <div className='relative h-4/5 max-w-4xl mt-4 overflow-x-auto shadow rounded-lg bg-white'>
           <table className='w-full text-sm text-gray-500'>
             <thead className='text-xs text-gray-600 sticky top-0 z-10 bg-white shadow-sm text-left uppercase'>

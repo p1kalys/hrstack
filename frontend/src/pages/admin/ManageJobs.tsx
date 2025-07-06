@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
-import type { EventData } from '../../interfaces/interface'
+import type { JobData } from '../../interfaces/interface'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
 import { PropagateLoader } from 'react-spinners'
-import EventTable from '../../components/EventTable'
+import JobTable from '../../components/JobTable'
 
-const ManageEvents = () => {
-    const [events, setEvents] = useState<EventData[]>([])
+const ManageJobs = () => {
+    const [jobs, setJobs] = useState<JobData[]>([])
     const [filter, setFilter] = useState<string>('Not Approved')
     const [loading, setLoading] = useState<boolean>(false);
 
     const { axios, role } = useAppContext()
 
-    const fetchEvents = async () => {
+    const fetchJobs = async () => {
         setLoading(true);
         try {
-            const { data } = await axios.get(`/api/${role}/events`)
-            data.success ? setEvents(data.events) : toast.error(data.message) 
+            const { data } = await axios.get(`/api/${role}/jobs`)
+            data.success ? setJobs(data.jobs) : toast.error(data.message) 
         } catch (error: any) {
             toast.error(error.message);
         } finally {
@@ -25,7 +25,7 @@ const ManageEvents = () => {
     }
 
     useEffect(() => {
-        fetchEvents();
+        fetchJobs();
     }, [])
 
     return (loading ? <div className="flex items-center justify-center h-screen w-screen">
@@ -33,7 +33,7 @@ const ManageEvents = () => {
     </div> :
         <div className='flex-1 pt-5 px-5 sm:pt-12 sm:pl-16 bg-blue-50/50'>
             <div className='flex justify-between items-center max-w-3xl'>
-                <h1 className='text-primary/90 text-2xl font-bold'>Events</h1>
+                <h1 className='text-primary/90 text-2xl font-bold'>Jobs</h1>
                 <div className='flex gap-4'>
                     <button onClick={() => setFilter('Approved')} className={`shadow-custom-sm border rounded-full px-4 py-1 cursor-pointer text-xs ${filter === 'Approved' ? 'text-primary' : 'text-gray-700'}`}>Approved</button>
                     <button onClick={() => setFilter('Not Approved')} className={`shadow-custom-sm border rounded-full px-4 py-1 cursor-pointer text-xs ${filter === 'Not Approved' ? 'text-primary' : 'text-gray-700'}`}>Not Approved</button>
@@ -49,7 +49,7 @@ const ManageEvents = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {events.filter((eventItem) => { 
+                        {jobs.filter((eventItem) => { 
                             if (filter === 'Approved') return eventItem.isApproved === true;
                             return eventItem.isApproved === false;
                         }).length === 0 ? (
@@ -59,13 +59,13 @@ const ManageEvents = () => {
                                 </td>
                             </tr>
                         ) : (
-                            events
+                            jobs
                                 .filter((eventItem) => {
                                     if (filter === 'Approved') return eventItem.isApproved === true;
                                     return eventItem.isApproved === false;
                                 })
                                 .map((eventItem, index) => (
-                                    <EventTable key={index} eventData={eventItem} fetchEvents={fetchEvents} /> 
+                                    <JobTable key={index} jobData={eventItem} fetchJobs={fetchJobs} />   
                                 ))
                         )}
                     </tbody>
@@ -75,4 +75,4 @@ const ManageEvents = () => {
     )
 }
 
-export default ManageEvents;
+export default ManageJobs;

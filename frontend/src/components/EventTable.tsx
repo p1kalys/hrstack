@@ -7,10 +7,10 @@ import { useAppContext } from '../context/AppContext';
 const EventTable: React.FC<EventTableProps> = ({ eventData, fetchEvents }) => { 
     const { title, description, date, location, link, physical, isApproved, createdAt, _id } = eventData;
 
-    const { axios } = useAppContext()
+    const { axios, role } = useAppContext()
     const approveEvent = async () => {
         try {
-            const { data } = await axios.post(`/api/profile/approve-event/${_id}`);
+            const { data } = await axios.post(`/api/${role}/approve-event/${_id}`);
             if (data.success) {
                 toast.success(data.message);
                 await fetchEvents()
@@ -26,7 +26,7 @@ const EventTable: React.FC<EventTableProps> = ({ eventData, fetchEvents }) => {
         try {
             const confirm = window.confirm('Are you sure you want to delete this event?');
             if (!confirm) return;
-            const { data } = await axios.post(`/api/profile/delete-event/${_id}`);
+            const { data } = await axios.post(`/api/${role}/delete-event/${_id}`);
             if (data.success) {
                 toast.success(data.message);
                 await fetchEvents()
