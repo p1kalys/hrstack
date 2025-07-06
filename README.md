@@ -1,4 +1,4 @@
-# HR Insight Hub
+# HR Stack
 A modern, centralized platform for Human Resource professionals to share, discover, and engage with content that matters — articles, trends, and resources curated specifically for the HR community.
 
 ## Project Motive
