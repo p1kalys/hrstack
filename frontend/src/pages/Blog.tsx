@@ -8,6 +8,13 @@ import Footer from "../components/Footer";
 import { PropagateLoader } from "react-spinners";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Share2,
+  MessageCircle,
+} from 'lucide-react';
 
 const ViewBlog = () => {
   const { id } = useParams<{ id: string }>()
@@ -18,6 +25,9 @@ const ViewBlog = () => {
   const [comments, setComments] = useState<BlogComment[] | undefined>();
   const [name, setName] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const articleUrl = window.location.href;
+  const encodedUrl = encodeURIComponent(articleUrl);
+  const message = encodeURIComponent("Check out this article!");
 
   const fetchBlogData = async () => {
     try {
@@ -105,9 +115,49 @@ const ViewBlog = () => {
 
           <div className="my-24 max-w-3xl mx-auto">
             <p className="font-semibold my-4">Share this article on social media</p>
-            <div className="flex">
-              <img src={assets.facebook_icon} alt="Facebook" width={50} />
-              <img src={assets.twitter_icon} alt="Twitter" width={50} />
+            <div className="flex flex-wrap gap-4">
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 bg-white p-1.5 border-gray-50 rounded-full shadow-md transition-transform" 
+              >
+                <Linkedin className="text-blue-700 w-4 h-4" />
+              </a>
+
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${message}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 bg-white p-1.5 border-gray-50 rounded-full shadow-md transition-transform"
+              >
+                <Twitter className="text-sky-500 w-4 h-4" />
+              </a>
+
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 bg-white p-1.5 border-gray-50 rounded-full shadow-md transition-transform"
+              >
+                <Facebook className="text-blue-600 w-4 h-4" />
+              </a>
+
+              <a
+                href={`https://api.whatsapp.com/send?text=${message}%20${encodedUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 bg-white p-1.5 border-gray-50 rounded-full shadow-md transition-transform"
+              >
+                <MessageCircle className="text-green-500 w-4 h-4" /> 
+              </a>
+
+              <button
+                onClick={() => {navigator.clipboard.writeText(articleUrl); toast.success('Copied to clipboard!')}}
+                className="hover:scale-110 cursor-pointer bg-white p-1.5 border-gray-50 rounded-full shadow-md transition-transform"
+              >
+                <Share2 className="text-gray-500 w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>
