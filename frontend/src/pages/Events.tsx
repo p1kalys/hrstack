@@ -43,7 +43,7 @@ const Events = () => {
     return (
         <>
             <Navbar />
-            <div className=' w-screen flex relative justify-center items-center'>
+            <div className='h-screen w-screen flex relative justify-center items-center'>
                 <img src={assets.gradientBackground} className='absolute -top-50 -z-1 opacity-50' alt='gradient background' />
                 <div className="w-5xl px-4 sm:px-20 py-10">
                     <div className='relative'>
