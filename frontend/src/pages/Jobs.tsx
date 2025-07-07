@@ -30,13 +30,13 @@ const Jobs = () => {
     return (
         <>
             <Navbar />
-            <div className='h-screen w-screen flex relative mx-auto my-10 mt-2 justify-center'>
+            <div className='h-screen w-screen flex relative mx-auto my-20 mt-2 justify-center'>
                 <img
                     src={assets.gradientBackground}
                     className='absolute -top-50 -z-1 opacity-50'
                     alt='gradient background'
                 />
-                <div className="w-5xl px-4 sm:px-20 py-4">
+                <div className="w-5xl px-4 sm:px-20 py-14">
                     <div className='relative'>
                         <div className='text-center mb-4'>
                             <div className='mx-6 sm:mx-16 xl:mx-24'>
